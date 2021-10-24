@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-l_lxc4vw!g(pt3h(gs!-kkzkw*4elwly6n3*qab&&ys)tkj-o+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://webexamapp.herokuapp.com/','127.0.0.1:8000']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
 
 ]
 SITE_ID = 1
+
 LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/index'
 LOGOUT_REDIRECT_URL = '/'
 
