@@ -70,7 +70,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
     <h5>Enter the room name:</h5>
     <input type="text" name="room_name"><br>
     <h5>Enter the no of questions you want to enter:</h5>
-    <input type="number" class="rounded" name="noq"><br><br>
+    <input type="number" class="rounded" name="noq" maxlength="2" onchange="changeHandler(this)"><br><br>
     <button type="submit" class="btn-success border rounded col-2  justify">Done</button>
   </div>
 
@@ -138,6 +138,15 @@ window.onclick = function(event) {
 function myFunction() {
             document.getElementById("frm1").reset();
         }
+
+
+function changeHandler(val)
+  {
+    if (Number(val.value) > 99)
+    {
+      val.value = 99
+    }
+  }
 </script>
 
 
