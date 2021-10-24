@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="row container">
+<h3 class="col-6 ml-2">Please choose the correct answers</h3>
+    <h3 class="col-4 ml-5" >Time-remaining<p id="demo" class="text-danger"></p></h3>
+</div>
+
+<form name="frm1" method="post" class="col-12">{% csrf_token %}
+{%for ques,opt1,opt2,opt3,opt4,ans in params%}
+
+ <div class="container my-3 border border-success rounded border-3">
+  <div class="p-2">
+  <div class="my-1 col-12 m-0">
+      <h6 >Question no {{forloop.counter}}: <b style="margin-left:4rem;">{{ques}}</b></h6>
+  </div>
+
+
+  <div class="my-1 col-12 m-0 ">
+      <h6>Options 1:<b style="margin-left:6rem;"> {{opt1}}</b></h6>
+  </div>
+
+   <div class="my-1 col-12 m-0 ">
+      <h6>Options 1:<b style="margin-left:6rem;"> {{opt2}}</b></h6>
+  </div>
+  <div class="my-1 col-12 m-0 ">
+      <h6>Options 1:<b style="margin-left:6rem;"> {{opt3}}</b></h6>
+  </div>
+
+  <div class="my-1 col-12 m-0 ">
+      <h6>Options 1:<b style="margin-left:6rem;"> {{opt4}}</b></h6>
+  </div>
+<br>
+   <div class="my-2 row">
+    <h6 class="col-2 ">Answer:</h6>
+   <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="answer">
+  <option selected value="1">Option 1</option>
+  <option value="2">Option 2</option>
+  <option value="3">Option 3</option>
+  <option value="4">Option 4</option>
+</select>
+   </div>
+  </div>
+</div>
+{% endfor %}
+<br>
+    <div class="row">
+<p class ='col-9'></p> <button type="submit" class="btn btn-success col-2">Submit</button>
+</div>
+</form>
+
+<script>
+if ({{hour}}!=0 || {{minute}} !=0 || {{second}}!=0){
+
+function myfunction(){
+// Set the date we're counting down to
+const d = new Date();
+const year = d.getDate();
+const hour = d.getHours();
+const minute = d.getMinutes() ;
+const second = d.getSeconds();
+
+const time_required = new Date(2021,6,6,hour+{{hour}},minute+{{minute}},second+{{second}}).getTime();
+
+sessionStorage.setItem("time_required", time_required);
+const time = sessionStorage.getItem("time_required");
+console.log(time)}
+
+// Update the count down every 1 second
+if (sessionStorage.clickcount) {
+      sessionStorage.clickcount = Number(sessionStorage.clickcount)+1;
+    } else {
+      sessionStorage.clickcount = 1;
+    }
+
+if(sessionStorage.clickcount == 1){
+myfunction();
+}
+console.log(sessionStorage);
+var x = setInterval(function(){
+
+// Get today's date and time
+var d = new Date();
+var hour = d.getHours();
+var minute = d.getMinutes() ;
+var second = d.getSeconds();
+
+
+var now = new Date(2021,6,6,hour,minute,second).getTime();
+
+
+  // Find the distance between now and the count down date
+  var distance = sessionStorage.getItem("time_required")- now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Output the result in an element with id="demo"
+  document.getElementById("demo").innerHTML = hours + "h "
+  + minutes + "m " + seconds + "s ";
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+    window.setTimeout(function() {
+      document.forms['frm1'].submit();
+}, 0);
+  }
+}, 1000);
+
+}else{
+document.getElementById("demo").innerHTML= "No time limit"
+}
+</script>
+{% endblock %}

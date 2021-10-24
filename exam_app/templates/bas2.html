@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Exam App</title>
+     <style>
+       {% block css %} {% endblock %}
+  </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </head>
+  <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+  <div class="container-fluid ">
+    <a class="navbar-brand col-4 col-sm-6 col-md-6 col-lg-8 col-xl-8" href="/index">Exam</a>
+
+      <button id="myBtn" class = "btn btn-success">Create question</button>
+
+    <div class="navbar text-warning ">
+      <strong>{{user}}</strong>
+    </div>
+    <form method="post" class="d-flex" action="/accounts/logout/">{% csrf_token %}
+  <button type="submit" class="btn btn-primary">Sign Out</button>
+  </form>
+
+  </div>
+</nav>
+
+
+  {% block body %} {% endblock %}
+<script>
+
+
+$("#frm1").submit(function(){
+    var isFormValid = true;
+
+    $("input").each(function(){
+        if ($.trim($(this).val()).length == 0){
+            $(this).addClass("highlight");
+            isFormValid = false;
+        }
+        else{
+            $(this).removeClass("highlight");
+        }
+    });
+
+    if (!isFormValid) alert("Please fill in all the required fields");
+    return isFormValid;
+});
+</script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </body>
+</html>

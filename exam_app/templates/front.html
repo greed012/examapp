@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+}
+
+
+.modal-content {
+
+  margin: auto;
+  padding: 20px;
+  border: 2px solid #888;
+  width: 30%;
+  color:#010606;
+
+}
+
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.a{
+    bg-color:red;
+
+}
+
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid row">
+    <a class="navbar-brand" href="/">Exam</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <a class="nav-link active text-warning mt-1 nav-item d-none d-lg-block d-xl-none d-xl-block ml-4"  aria-current="page" href="/index">Conduct Exam</a>
+
+          <li class="nav-item d-block d-sm-none d-none d-sm-block d-md-none d-md-block d-lg-none">
+          <a class="nav-link active text-warning mt-1 ml-4"   aria-current="page" href="/index">Conduct Exam</a>
+        </li>
+        <li class="nav-item mt-1">
+          <button id="myBtn" class = "btn btn-success ml-4">Attend Exam</button>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="container-fluid mt-3">
+<h2>From site developer</h2>
+    <p style="font-size:20px;">This project is simply a practice project developed using <strong>Django</strong>.This project was definitely an eye opener project at least for me. As i went
+    through development phase i came across alot of challanges which were simple enough but i didn't knew how to. After thoroughly skimming through documentation
+        multiple times finally i knew how to. I know i still lack alot on UI part. <strong>A big thanks to</strong>
+    <ul class="h5">
+    <li><a href="https://docs.djangoproject.com/en/3.2/">Django Documentations</a></li>
+    <li><a href="https://stackoverflow.com/">Stackoverflow</a></li>
+    <li><a href="https://www.w3schools.com/"> W3schools</a></li>
+    <li><a href="https://getbootstrap.com/"> Bootstrap</a></li>
+</ul>
+</div><br><br>
+<div class="container-fluid">
+    <h4>Overview of the project :</h4>
+    <p style="font-size:20px;">The project I say exam app is a simple application for conducting online exams (more like MCQ).A user have two options.One use is to conduct exam and other
+    to attend the exam. So we can say that there are two modes.<ul class="h5"><li>Conduct Exam</li><li>Attend Exam</li></ul></p>
+</div>
+<br>
+<div class="container-fluid">
+<h4>Conduct Exam:</h4>
+    <p style="font-size:20px; " >This is a mode in which user can create different question papers,set multiple options and set their answers and also time limit that examinor want to
+        allocate for the examination. A 26 digit code will be generated that he can share with his examinee or students with which they can acess Attend Exam
+    mode to give examination.There are more fatures in this interface such as viewing the result of those who attended examination, Delete question paper,edit uestion paper their answer and other too.
+        <strong class="text-danger border">Note: But you need to login using Google to access this mode.</strong><br>
+    </p>
+<a href="/index" ><button type="button"  class="btn btn-primary mx-2">Conduct Exam</button></a>
+</div>
+<br><br>
+
+<div class="container-fluid">
+<h4>Attend Exam:</h4>
+    <p style="font-size:20px; " >This mode is used to attend the exam. But you need have 26 digit exam code(<strong>Example: KPxO8eWjhoDafJjrfmaCGZQEDp</strong>) to attend exam.
+    If you dont have the examination code please ask your examinor for the code. What happens in this mode is you enter your name and exam code then an exam paper will pop up
+    . After you answer the uestion and hit submit within the allocated time then the system will check you answer with already set answer(setted by your examinor) and show you your marks.
+   <strong class="text-danger border"> Note:You can only view your marks once but you dont have to worry, Your marks will be saved in teacher's interface.  </strong></p>
+<button id="myBtn1" class = "btn btn-success my-2 mx-2">Attend Exam</button>
+</div>
+
+<br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<form method="post" class="container" id="frm1" name="frm1">{% csrf_token %}
+<div id="myModal" class="modal">
+
+
+   <div class="modal-content bg-light text-dark border border-dark">
+    <span class="close">&times;</span>
+    <h4>Enter the exam code:</h4>
+    <input type="text" name="exam_code"><br>
+    <h4>Enter your full name:</h4>
+    <input type="text" name="name"><br><br>
+
+    <button type="submit" class="btn-success border rounded col-2  justify">Done</button>
+  </div>
+
+</div>
+</form>
+
+<script>
+sessionStorage.clear();
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+var btn1 = document.getElementById("myBtn1");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick= function() {
+
+  modal.style.display = "block";
+}
+btn1.onclick= function() {
+
+  modal.style.display = "block";
+}
+
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+myFunction();
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    myFunction();
+    modal.style.display = "none";
+
+  }
+}
+function myFunction() {
+            document.getElementById("frm1").reset();
+        }
+
+</script>
+
+{% endblock%}

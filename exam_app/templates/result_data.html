@@ -1,0 +1,30 @@
+{% extends 'base3.html' %}
+{% block body %}
+{% if params %}
+<table class="table table-border container m-2 border bg-light col-12">
+  <thead>
+    <tr class="bg-warning">
+      <th scope="col">S.no</th>
+      <th scope="col">Name of student</th>
+      <th scope="col">Marks</th>
+      <th scope="col">Total question</th>
+      <th scope="col">Details</th>
+    </tr>
+  </thead>
+  {% for rel_id,stud_name,student_id,total_ques,correct_ques in params %}
+
+  <tbody>
+    <tr class="border">
+      <th scope="row" >{{forloop.counter}}</th>
+      <td>{{stud_name}}</td>
+      <td>{{correct_ques}}</td>
+      <td>{{total_ques}}</td>
+      <td><a href="/view_details/{{rel_id}}/{{student_id}}" class="btn btn-success">Details</a></td>
+    </tr>
+  </tbody>
+ {% endfor %}
+</table>
+{% else %}
+<h1 class="p-5"> No one has given the test  yet.</h1>
+{% endif %}
+{% endblock%}

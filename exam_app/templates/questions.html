@@ -1,0 +1,105 @@
+{% extends 'base3.html' %}
+
+{% block body %}
+<style>
+    body{
+    background-color:linen;
+
+    }
+</style>
+<div>
+    <h3 class="container mb-5 mt-5">Submit your Questions here  along with options and correct answers:</h3>
+
+
+    <form  method="post" class="col-12" name="frm" id="frm">{% csrf_token %}
+{% for i in range %}
+ <div class="container my-3 border border-success rounded border-3">
+  <div class="p-2">
+  <div class="my-1 row ">
+    <h6 class="col-2">Question no {{i}}</h6><input type="text" class="form-control form-floating col-10" name='question' placeholder="Enter Your Question">
+  </div>
+
+
+  <div class="my-1 row ">
+    <h6 class="col-2">Options 1: </h6><input type="name" class="form-control col-10"  name='option1' placeholder="Option 1">
+  </div>
+
+
+  <div class="my-1 row">
+    <h6 class="col-2">Options 2: </h6><input type="name" class="form-control col-10"  name='option2' placeholder="Option 2">
+  </div>
+
+  <div class="my-1 row">
+    <h6 class="col-2">Options 3: </h6><input type="name" class="form-control col-10"  name='option3' placeholder="Option 3">
+  </div>
+
+  <div class="my-1 row">
+    <h6 class="col-2">Options 4: </h6><input type="name" class="form-control col-10"  name='option4' placeholder="Option 4">
+  </div>
+
+   <div class="my-2 row">
+    <h6 class="col-2 ">Answer:</h6>
+   <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="answer">
+  <option selected value="1">Option 1</option>
+  <option value="2">Option 2</option>
+  <option value="3">Option 3</option>
+  <option value="4">Option 4</option>
+</select>
+   </div>
+  </div>
+</div>
+{% endfor %}
+         <div class="container">
+<h5 class="mt-5">Please enter the amount of time you would like to give to examinee. (If you don't want to set any time limit then please leave it to 0)</h5>
+
+<select class="form-select " aria-label="Default select example" id="select1" name="select1" style="height:2rem;width:5rem">
+    {% for i in hour %}
+  <option value="{{i}}">{{i}}</option>
+    {% endfor %}
+</select>
+        <label for="select1">Hour</label>
+        <select class="form-select" aria-label="Default select example" id="select2" name="select2" style="height:2rem;width:5rem;">
+  {% for i in seconds %}
+  <option value="{{i}}">{{i}}</option>
+    {% endfor %}
+</select>
+        <label for="select1">Minutes</label>
+
+<select class="form-select" aria-label="Default select example" id="select3" name="select3" style="height:2rem;width:5rem;">
+   {% for i in seconds %}
+  <option value="{{i}}">{{i}}</option>
+    {% endfor %}
+</select>
+<label for="select1">Seconds</label>
+</div>
+        <br><br>
+    <div class="row">
+<p class ='col-9'></p> <button type="submit" class="btn btn-success col-2">Submit</button>
+</div>
+</form>
+
+
+
+
+</div>
+
+
+<script>
+$("#frm").submit(function(){
+    var isFormValid = true;
+
+    $("input").each(function(){
+        if ($.trim($(this).val()).length == 0){
+            $(this).addClass("highlight");
+            isFormValid = false;
+        }
+        else{
+            $(this).removeClass("highlight");
+        }
+    });
+
+    if (!isFormValid) alert("Please fill in all the required fields");
+    return isFormValid;
+});
+</script>
+{% endblock %}

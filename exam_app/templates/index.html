@@ -1,0 +1,144 @@
+
+{% extends 'bas2.html' %}
+
+{% block body %}
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+
+  margin: auto;
+  padding: 20px;
+  border: 2px solid #888;
+  width: 30%;
+  color:#010606;
+
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.a{
+    bg-color:red;
+
+}
+</style>
+</head>
+<body>
+
+
+
+<!-- Trigger/Open The Modal -->
+
+
+
+<!-- The Modal -->
+<form method="post" id="frm1" name="frm1">{% csrf_token %}
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+
+  <div class="modal-content bg-light text-dark border border-dark">
+    <span class="close">&times;</span>
+    <h5>Enter the room name:</h5>
+    <input type="text" name="room_name"><br>
+    <h5>Enter the no of questions you want to enter:</h5>
+    <input type="number" class="rounded" name="noq"><br><br>
+    <button type="submit" class="btn-success border rounded col-2  justify">Done</button>
+  </div>
+
+</div>
+</form>
+
+
+<div class="container row">
+
+    {% if params%}
+
+    {%for id,room_name,no_question,exam_code in params %}
+
+<div class="col-xs-3 col-sm-12 col-md-6 col-lg-4 col-xl-3 mt-2 card-group text-dark ">
+    <div class="card bg-dark text-white border-success" style="height:20rem;">
+     <div class="card-body">
+      <h5 class="card-title" style="height:4rem;"><strong>Room_name::</strong> {{room_name}}</h5>
+      <p class="card-text"><strong>No of questions:</strong> {{no_question}}</p>
+         <p class="card-text"><strong>Exam Code :</strong> {{exam_code}}</p>
+         <div class="row">
+      <a href="/result_data/{{id}}" class="btn btn-success col-6">Exam result</a> &nbsp; &nbsp;
+      <a href="/delete_room/{{id}}" class="btn btn-danger col-5">Delete</a>
+             <a href="/room/edit/{{id}}" class="btn btn-warning col-5 mt-2 col-12 ">Edit question and answers</a>
+    </div>
+         </div>
+  </div>
+  </div>
+
+{% endfor %}
+    {% else %}
+    <h5>Please add some questions</h5>
+    {% endif %}
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+myFunction();
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    myFunction();
+    modal.style.display = "none";
+
+  }
+}
+function myFunction() {
+            document.getElementById("frm1").reset();
+        }
+</script>
+
+
+ {% endblock %}

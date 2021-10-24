@@ -1,0 +1,62 @@
+{% extends 'base3.html' %}
+{% block body %}
+
+<div class="row mt-4 mr-4 p-4 ml-1 ">
+    <h4 class="col-12 col-md-12 col-lg-4 ">Name :  <u>{{name}}</u></h4>
+    <h4 class="col-12 col-md-12 col-lg-4"> Total questions: {{total}}</h4>
+    <h4 class="col-12 col-md-12 col-lg-4">Correct Answers:  {{count}}</h4>
+
+    <h4 class="col-12 mt-5 " style="text-align:center">Test paper of <u>{{name}}</u> is below :</h4>
+</div>
+
+{% for ques,opt1,opt2,opt3,opt4,ans,std_ans in params%}
+
+
+ <div class="container my-3 border border-dark rounded border-3 col-10">
+  <div class="p-2 ">
+  <div class="my-1 row ">
+    <h6 class="col-2 col-md-2">Question no {{forloop.counter}}:</h6><h6 class="col-10 col-md-5">{{ques}}</h6>
+  </div>
+
+
+  <div class="my-1 row ">
+    <h6 class="col-2">Options 1: </h6><h6 class="col-8">{{opt1}}</h6>
+  </div>
+
+  <div class="my-1 row">
+    <h6 class="col-2">Options 2: </h6><h6 class="col-8">{{opt2}}</h6>
+  </div>
+
+  <div class="my-1 row">
+    <h6 class="col-2">Options 3: </h6><h6 class="col-8">{{opt3}}</h6>
+  </div>
+
+  <div class="my-1 row">
+    <h6 class="col-2">Options 4: </h6><h6 class="col-8">{{opt4}}</h6>
+  </div>
+
+{% ifequal ans std_ans %}
+   <div class="my-2 row border border-success rounded border-3 bg-success">
+       <h6 class="col-2 my-1">Your Answer:</h6><h6 class="col-8 my-1">{{std_ans}}</h6>
+   </div>
+ {% endifequal %}
+      {% ifnotequal ans std_ans %}
+      <div class="border border-danger rounded border-3 bg-danger text-white">
+      <div class="my-2 row ">
+       <h6 class="col-2 my-1 mx-1 ">Your Answer:</h6><h6 class="col-8 my-1">{{std_ans}}</h6>
+   </div>
+      <div class="my-2 row ">
+       <h6 class="col-2 my-1 mx-1">Correct Answer:</h6><h6 class="col-8 my-1">{{ans}}</h6>
+   </div>
+          </div>
+
+      {% endifnotequal %}
+
+
+  </div>
+</div>
+
+
+{%endfor%}
+<br><br><br>
+{% endblock %}

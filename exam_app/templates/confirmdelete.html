@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    body{
+    background-color:black;
+
+    }
+</style>
+      <form method="post" style="margin-top:15%">{% csrf_token %}
+         <h3 class="container jumbotron mt-3" style="text-align:center">Are you sure you want to delete "{{ name }}"? All data including student answer ,student details questions will b deleted??</h3>
+         <div style="text-align:center;margin:5rem;">
+          <input type="submit"  class="btn btn-danger" value="Confirm" style="width:10rem;height:3rem;">
+          <a href="/index" class="btn btn-success" style="width:10rem;height:3rem;">Cancel</a>
+             </div>
+      </form>
+{% endblock %}

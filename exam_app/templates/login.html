@@ -1,0 +1,13 @@
+{% load socialaccount %}
+<html>
+<body>
+{% if not user.is_authenticated %}
+<h1>Sorry you are not logged in </h1>
+  <a href="{% provider_login_url 'google' %}">Login With Google</a>
+{% else %}
+
+{% endif %}
+
+
+</body>
+</html>
