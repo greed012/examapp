@@ -332,7 +332,16 @@ def Editroom(request,pk):
             noq = m.no_question
         data = []
         for p in question_data:
-            value = [p.ques, p.option1, p.option2, p.option3, p.option4, p.answer]
+            if p.asnwer == p.option1:
+                ans = 1
+            elif p.answer == p.option2:
+                ans = 2
+            elif p.answer == p.option3:
+                ans = 3
+            else:
+                ans = 4
+
+            value = [p.ques, p.option1, p.option2, p.option3, p.option4, ans]
             data.append(value)
 
         if request.method == 'POST':
