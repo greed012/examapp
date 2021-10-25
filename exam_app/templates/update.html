@@ -32,7 +32,16 @@
    <div class="my-2 row">
     <h6 class="col-2 ">Answer:</h6>
    <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="answer">
-  <option selected value="1">Option 1</option>
+       {% if option1 == answer %}
+       <option selected value="1">Option1</option>
+       {% elif option2 == answer %}
+       <option selected value="2">Option2</option>
+       {% elif option3 == answer %}
+       <option selected value="3">Option3</option>
+       {% elif option4 == answer %}
+       <option selected value="4">Option4</option>
+    <option>---------</option>
+       <option  value="1">Option 1</option>
   <option value="2">Option 2</option>
   <option value="3">Option 3</option>
   <option value="4">Option 4</option>
