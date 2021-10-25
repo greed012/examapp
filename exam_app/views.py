@@ -332,7 +332,7 @@ def Editroom(request,pk):
             noq = m.no_question
         data = []
         for p in question_data:
-            if p.asnwer == p.option1:
+            if p.answer == p.option1:
                 ans = 1
             elif p.answer == p.option2:
                 ans = 2
